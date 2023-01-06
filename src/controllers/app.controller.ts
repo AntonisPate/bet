@@ -3,7 +3,6 @@ import cors from "cors";
 
 import { EventsRoutes } from '../routes/events.routes';
 import { SportsRoutes } from "../routes/sports.routes";
-import changeLocale from "../services/locale.service";
 import language from "../middleware/language.middleware";
 
 export default class AppController {
