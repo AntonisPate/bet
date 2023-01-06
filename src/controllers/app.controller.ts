@@ -12,6 +12,8 @@ export default class AppController {
         this.initializeRoutes();
     }
 
+    //Starts the application
+    //Param: port number the port of the application
     public async start(port: number): Promise<void> {
         
         this.app.listen(9999, async () => {
@@ -26,15 +28,18 @@ export default class AppController {
         });
     }
 
+    //initializes the middleware of the application
     private initializeMiddleware(): void {
         this.app.use(cors());
     }
 
+    //initializes the routes of the application
     private initializeRoutes(): void {
         new SportsRoutes(this.app);
         new EventsRoutes(this.app);
     }
 
+    //Caches all data of the application
     private async cacheAllData(): Promise<void> {
         try {
             await global.appCache.initCache();            
