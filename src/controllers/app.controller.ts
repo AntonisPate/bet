@@ -4,6 +4,7 @@ import cors from "cors";
 import { EventsRoutes } from '../routes/events.routes';
 import { SportsRoutes } from "../routes/sports.routes";
 import changeLocale from "../services/locale.service";
+import language from "../middleware/language.middleware";
 
 export default class AppController {
     private app: Express = express();
@@ -32,6 +33,7 @@ export default class AppController {
     //initializes the middleware of the application
     private initializeMiddleware(): void {
         this.app.use(cors());
+        this.app.use(language)
     }
 
     //initializes the routes of the application
