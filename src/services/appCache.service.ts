@@ -10,6 +10,9 @@ export default class AppCache extends CommonCacheConfig {
         super("appCache");
     }
 
+    //Gets all data
+    //if the data exist in the cache returns the cached data
+    //else fetched the data, store them in the cache and return them
     public async getData(): Promise<any> {
         try {
             if (this.hasData()) {
@@ -24,6 +27,7 @@ export default class AppCache extends CommonCacheConfig {
         }
     }
     
+    //Fetches all data
     private async fetchData() {
         try {
             let data = await this.httpService.getData();
@@ -33,6 +37,7 @@ export default class AppCache extends CommonCacheConfig {
         }
     }
 
+    //Initializes the cache and create interval to fetch the data according to ttlMs variable
     public async initCache() {
         setInterval(async () => {
             try {
@@ -43,6 +48,7 @@ export default class AppCache extends CommonCacheConfig {
         }, this.ttlMs)
     }
 
+    //Caches all data of the application
     public async cacheData() {
         try {
             let data = await this.fetchData();

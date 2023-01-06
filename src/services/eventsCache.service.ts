@@ -6,13 +6,13 @@ import Sport from "../interfaces/sport.interface";
 
 export default class EventsCache extends CommonCacheConfig {
 
-    private httpService: HttpService = new HttpService();
-    private ttlMs: number = 4000;
-
     constructor() {
         super("eventsCache");
     }
 
+    //Gets all events of a sport according to the id of the sport
+    //Param: sportId number the id of the sport
+    //Returns Event[] the list of the events
     public async getAllEventsPerSport(sportId = 100): Promise<Event[]> {
         try {
             let data = await this.getData();
@@ -35,6 +35,9 @@ export default class EventsCache extends CommonCacheConfig {
         }
     }
 
+    //Gets all the event data of an event according to the event id
+    //Param: eventId number the id of th event
+    //Returns Promise<event|null> the data of the event | null if no event found
     public async getEventDataPerId(eventId: number): Promise<Event | null> {
         try {
             let data = await this.getData();
@@ -48,6 +51,9 @@ export default class EventsCache extends CommonCacheConfig {
         }
     }
 
+    //Gets all data
+    //if the data exist in the cache returns the cached data
+    //else fetched the data, store them in the cache and return them
     public async getData(): Promise<any> {
         if (!this.hasData()) {
             await global.appCache.cacheData();
@@ -55,6 +61,8 @@ export default class EventsCache extends CommonCacheConfig {
         return this.cache.get(this.key);
     }
 
+    //Caches all data of the events
+    //Param: data the data that will be cached
     public cacheData(data: any): void {
         try {
             let formattedData = this.formatData(data);
@@ -64,6 +72,9 @@ export default class EventsCache extends CommonCacheConfig {
         }
     }
 
+    //Formats the event data
+    //Param: inputData the data the events
+    //Return Event[] the events
     private formatData(inputData: any): Event[] {
         let out: Event[] = [];
         inputData.sports.forEach((sport: Sport) => {

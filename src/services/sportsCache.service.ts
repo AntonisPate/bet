@@ -6,12 +6,13 @@ import Sport from "../interfaces/sport.interface";
 export default class SportsCache extends CommonCacheConfig {
 
     private httpService: HttpService = new HttpService();
-    private ttlMs: number = 4000;
 
     constructor() {
         super("sportsCache");
     }
 
+    //Gets all sports
+    //Returns Promise<Sports[]> the promise of the sports array
     public async getAllSports(): Promise<Sport[]> {
         try {
             let data = await this.getData();
@@ -27,6 +28,9 @@ export default class SportsCache extends CommonCacheConfig {
         }
     }
 
+    //Gets all data
+    //if the data exist in the cache returns the cached data
+    //else fetched the data, store them in the cache and return them
     public async getData(): Promise<any> {
         try {
             if (!this.hasData()) {
@@ -38,6 +42,8 @@ export default class SportsCache extends CommonCacheConfig {
         }
     }
 
+    //Caches all data of the events
+    //Param: data the data that will be cached
     public cacheData(data: any): void {
         try {
             let formattedData = this.formatData(data);
@@ -47,6 +53,9 @@ export default class SportsCache extends CommonCacheConfig {
         }
     }
 
+    //Formats the sport data
+    //Param: inputData the data the sports
+    //Return Sport[] the sports
     private formatData(inputData: any): Sport[] {
         let out: Sport[] = [];
         inputData.sports.forEach((sport: Sport) => {
