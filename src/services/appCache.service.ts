@@ -4,7 +4,7 @@ import HttpService from "./http.service";
 export default class AppCache extends CommonCacheConfig {
 
     private httpService: HttpService = new HttpService();
-    private ttlMs: number = 4000;
+    private ttlMs: number = 30000;
 
     constructor() {
         super("appCache");
