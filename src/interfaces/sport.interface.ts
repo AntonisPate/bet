@@ -1,9 +1,10 @@
 import Competition from "./competition.interface";
+import Languages from "./languages.interface";
 
 interface Sport {
     id: number;
     epId: number;
-    desc: string;
+    desc: string | Languages;
     pos: number;
     ne: number;
     eic: number;
