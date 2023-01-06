@@ -9,4 +9,5 @@ declare global {
     var appCache: AppCache;
     var sportsCache: SportsCache;
     var eventsCache: EventsCache;
+    var i18n: any;
 }
