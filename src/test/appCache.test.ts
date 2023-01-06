@@ -2,8 +2,18 @@ import NodeCache from "node-cache";
 import AppCache from "../services/appCache.service";
 import SportsCache from "../services/sportsCache.service";
 import EventsCache from "../services/eventsCache.service";
+import { I18n } from "i18n";
+import path from "path";
 
- 
+const i18n = new I18n({
+    locales: ['en', 'de', 'zh'],
+    defaultLocale: 'en',
+    directory: path.join('./', 'locales')
+});
+
+// @ts-ignore
+global.i18n = i18n;
+
 global.cache = new NodeCache();
 global.appCache = new AppCache();
 global.sportsCache = new SportsCache();
@@ -29,6 +39,12 @@ test("test get data", () => {
 
 test("test get all sports", async () => {
     let data = await sportCache.getAllSports();
+    expect(data).not.toBeNull();
+});
+
+
+test("test get all sports with all languages", async () => {
+    let data = await sportCache.getAllSports(true);
     expect(data).not.toBeNull();
 });
 
