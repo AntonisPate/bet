@@ -3,6 +3,7 @@ import cors from "cors";
 
 import { EventsRoutes } from '../routes/events.routes';
 import { SportsRoutes } from "../routes/sports.routes";
+import changeLocale from "../services/locale.service";
 
 export default class AppController {
     private app: Express = express();
@@ -15,7 +16,6 @@ export default class AppController {
     //Starts the application
     //Param: port number the port of the application
     public async start(port: number): Promise<void> {
-        
         this.app.listen(9999, async () => {
             await this.cacheAllData();
 
@@ -24,7 +24,8 @@ export default class AppController {
         })
 
         this.app.use((request: Request, response: Response, next: NextFunction) => {
-            return response.status(406).send('Error at process.');
+            changeLocale(request.query.lang as string);
+            return response.status(406).send(global.i18n.__('Error at process'));
         });
     }
 

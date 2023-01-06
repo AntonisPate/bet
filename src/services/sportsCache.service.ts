@@ -2,6 +2,7 @@ import { CommonCacheConfig } from "../common/cache.config.common";
 import HttpService from "./http.service";
 
 import Sport from "../interfaces/sport.interface";
+import allLanguages from "./language.service";
 
 export default class SportsCache extends CommonCacheConfig {
 
@@ -13,12 +14,20 @@ export default class SportsCache extends CommonCacheConfig {
 
     //Gets all sports
     //Returns Promise<Sports[]> the promise of the sports array
-    public async getAllSports(): Promise<Sport[]> {
+    public async getAllSports(lang = false): Promise<Sport[]> {
         try {
             let data = await this.getData();
             if (data) {
                 data.forEach((sport: Sport) => {
                     delete sport.comp;
+                    if (lang) {
+                        let expectedLang = allLanguages(sport.desc as string);
+                        if (expectedLang) {
+                            sport.desc = expectedLang;
+                        }
+                    } else {
+                        sport.desc = global.i18n.__(sport.desc as string);
+                    }
                 });
                 return data;
             }

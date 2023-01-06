@@ -14,7 +14,7 @@ export default function formatResponse(data: Event[] | Event | Sport[] | null): 
     return {
         status: {
             success: true,
-            message: "Ok"
+            message: global.i18n.__('success')
         },
         result: data
     }
