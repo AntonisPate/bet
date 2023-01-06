@@ -75,7 +75,7 @@ export default class EventsCache extends CommonCacheConfig {
     //Formats the event data
     //Param: inputData the data the events
     //Return Event[] the events
-    private formatData(inputData: any): Event[] {
+    protected formatData(inputData: any): Event[] {
         let out: Event[] = [];
         inputData.sports.forEach((sport: Sport) => {
             let comp = sport.comp;
