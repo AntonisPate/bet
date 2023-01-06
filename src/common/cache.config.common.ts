@@ -19,5 +19,4 @@ export abstract class CommonCacheConfig {
 
     abstract getData(): any;
     abstract cacheData(cacheData: any): any;
-    protected abstract formatData(inputData: any): any;
 }

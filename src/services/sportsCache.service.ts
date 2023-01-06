@@ -56,7 +56,7 @@ export default class SportsCache extends CommonCacheConfig {
     //Formats the sport data
     //Param: inputData the data the sports
     //Return Sport[] the sports
-    protected formatData(inputData: any): Sport[] {
+    private formatData(inputData: any): Sport[] {
         let out: Sport[] = [];
         inputData.sports.forEach((sport: Sport) => {
             out.push({
