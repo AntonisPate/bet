@@ -8,6 +8,8 @@ export abstract class CommonCacheConfig {
         this.key = key;
     }
 
+    //Checks if the data exists in the cache
+    //Returns boolean
     public hasData(): boolean {
         if (this.cache.get(this.key) === undefined) {
             return false;
@@ -16,4 +18,6 @@ export abstract class CommonCacheConfig {
     }
 
     abstract getData(): any;
+    abstract cacheData(cacheData: any): any;
+    protected abstract formatData(inputData: any): any;
 }
