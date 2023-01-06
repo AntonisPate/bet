@@ -22,6 +22,16 @@ export class SportsRoutes extends CommonRoutesConfig {
                 response.sendStatus(404);
             }
         })
+
+        //Get all sports in all languages
+        this.app.get('/sports/all-lang', async (request: Request, response: Response, next: NextFunction) => {
+            let data = await this.sportsController.getSports(true);
+            if (data) {
+                response.status(200).send(formatResponse(data));
+            } else {
+                response.sendStatus(404);
+            }
+        })
         return this.app;
     }
 }
