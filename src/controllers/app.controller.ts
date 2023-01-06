@@ -25,7 +25,6 @@ export default class AppController {
         })
 
         this.app.use((request: Request, response: Response, next: NextFunction) => {
-            changeLocale(request.query.lang as string);
             return response.status(406).send(global.i18n.__('Error at process'));
         });
     }
